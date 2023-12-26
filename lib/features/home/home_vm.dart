@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timekeeping/core/constants/shared_pref.dart';
 import 'package:timekeeping/core/helpers/locations.dart';
-import 'package:timekeeping/core/state.dart';
 import 'package:timekeeping/domains/repositories/api_repository.dart';
 
 class HomeViewModel {
@@ -19,14 +18,8 @@ class HomeViewModel {
         onLogin();
         return;
       }
-      return;
-      final userInfoResult = await _apiRepository.getUserById(userInfo.userId);
-      if (userInfoResult is Success) {
-        await requestLocations();
-      } else {
-        onLogin();
-        return;
-      }
+      final userResult = await _apiRepository.getUserById(userInfo.userId);
+      debugPrint('${userResult.data}');
     } catch (e) {
       onFailed(e.toString());
       return;
